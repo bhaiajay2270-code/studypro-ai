@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyPro AI — Your Personal AI Teacher</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+:root{--bg:#f5f7ff;--card:#fff;--ink:#17213b;--muted:#68738d;--blue:#536dfe;--purple:#8157e8;--line:#e8ebf5;--green:#18a879}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 10% 5%,#e8edff 0,transparent 28%),radial-gradient(circle at 95% 30%,#efe8ff 0,transparent 25%),var(--bg);color:var(--ink);overflow-x:hidden}
+button,select,.subject,.card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:hover{box-shadow:0 14px 38px #27345d12;transform:translateY(-2px)}
+.logo{box-shadow:0 8px 18px #536dfe55;animation:logoFloat 3s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(5deg)}}
+.hero{position:relative;isolation:isolate;box-shadow:0 18px 42px #3546a833}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;z-index:-1;filter:blur(1px);animation:orb 8s ease-in-out infinite}
+.hero:before{width:190px;height:190px;right:14%;top:-85px;background:radial-gradient(circle at 35% 30%,#ffffff99,#9f8aff22 65%,transparent 70%);box-shadow:inset -18px -18px 35px #1d287855,0 20px 50px #111b5b55}
+.hero:after{width:90px;height:90px;right:5%;bottom:-35px;background:radial-gradient(circle at 30% 25%,#ffffffaa,#b4a6ff44 65%,transparent 70%);animation-delay:-3s}
+@keyframes orb{0%,100%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(-12px,13px,0) rotate(18deg)}}
+.hero-icon{filter:drop-shadow(0 12px 12px #111b5b55);animation:cap 4s ease-in-out infinite}
+@keyframes cap{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-9px) rotate(5deg)}}
+.btn{box-shadow:0 8px 18px #536dfe33}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 22px #536dfe44}
+.subject:hover,.note:hover{transform:translateY(-3px);box-shadow:0 9px 20px #26345d12}
+.feature{transition:transform .25s ease,box-shadow .25s ease}.feature:hover{transform:translateY(-5px) rotateX(3deg);box-shadow:0 12px 26px #26345d12}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.top{max-width:1120px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:20px;letter-spacing:-.5px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;color:#fff;font-size:20px}
+.badge{font-size:12px;color:#5e55c7;background:#f0edff;padding:7px 11px;border-radius:30px;font-weight:700}
+main{max-width:1120px;margin:28px auto;padding:0 20px}.hero{background:linear-gradient(120deg,#243b9b,#6548d9);border-radius:24px;padding:30px;color:#fff;display:flex;justify-content:space-between;gap:20px;align-items:center;overflow:hidden}
+.hero h1{font-size:clamp(27px,5vw,40px);margin:0 0 9px;letter-spacing:-1px}.hero p{margin:0;color:#e2e6ff;line-height:1.6;max-width:600px}.hero-icon{font-size:76px;opacity:.95}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 22px #27345d08}
+h2{font-size:19px;margin:0 0 5px}.sub{font-size:13px;color:var(--muted);margin:0 0 16px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 7px}select,input,textarea{width:100%;border:1px solid #dfe4f1;border-radius:11px;padding:12px;background:#fff;color:var(--ink);font:inherit;outline:none}select:focus,input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #536dfe18}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:11px;padding:12px 17px;background:linear-gradient(120deg,var(--blue),var(--purple));color:white;font-weight:750;cursor:pointer}.btn:active{transform:scale(.99)}.btn.secondary{background:#eef0ff;color:#4e56bd}.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.answer{margin-top:15px;padding:14px;border-radius:12px;background:#f6f7ff;border:1px solid #e5e8ff;line-height:1.65;white-space:pre-wrap;display:none}.notice{font-size:12px;color:#7b6680;background:#fff8eb;border:1px solid #f4e6c8;padding:11px;border-radius:10px;margin-top:13px}
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.subject{border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;font-size:13px;font-weight:700;background:#fff;cursor:pointer}.subject span{display:block;font-size:22px;margin-bottom:5px}.subject.active{border-color:var(--blue);background:#f1f3ff;color:#4658d5}
+.note-list{display:grid;gap:9px}.note{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.note strong{font-size:14px}.note small{display:block;color:var(--muted);margin-top:4px}.tag{font-size:11px;background:#eaf8f3;color:#13835f;padding:5px 8px;border-radius:20px;white-space:nowrap}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.feature{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.feature b{display:block;font-size:14px;margin:7px 0 4px}.feature p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}.feature span{font-size:23px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 15px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.hero-icon{font-size:48px}.features{grid-template-columns:1fr 1fr}.top{padding:11px 14px}main{padding:0 14px;margin:18px auto}.hero{padding:23px 20px}.subjects{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:390px){.row{grid-template-columns:1fr}.badge{display:none}}
+
+.learning-scene{margin-top:18px;min-height:285px;border:1px solid #e4e7fb;border-radius:23px;background:linear-gradient(115deg,#fff 0%,#f5f3ff 55%,#eef5ff 100%);padding:24px 28px;display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:18px;overflow:hidden;position:relative;box-shadow:0 12px 34px #34428b0d}
+.scene-copy{position:relative;z-index:2}.scene-kicker{font-size:10px;font-weight:900;letter-spacing:2px;color:#6b61d7}.scene-copy h2{font-size:clamp(23px,3vw,32px);line-height:1.15;letter-spacing:-1px;margin:10px 0}.scene-copy h2 em{font-style:normal;color:#6655dc}.scene-copy p{max-width:390px;color:#68738d;font-size:13px;line-height:1.65}.scene-points{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.scene-points span{font-size:11px;font-weight:750;color:#4d55b5;background:#eeefff;border:1px solid #e0e2ff;padding:7px 10px;border-radius:30px}
+.characters{height:240px;position:relative;display:flex;align-items:flex-end;justify-content:center;gap:25px;perspective:900px}
+.character{width:145px;height:205px;position:relative;display:flex;align-items:center;flex-direction:column;animation:characterBob 4s ease-in-out infinite;transform-style:preserve-3d}
+.character.student{animation-delay:-2s;transform:scale(.93)}
+.avatar-glow{position:absolute;width:135px;height:135px;top:18px;border-radius:50%;background:radial-gradient(circle,#dcd9ff 0%,#e8eaff 48%,transparent 72%);filter:blur(2px)}
+.avatar-head{position:absolute;top:30px;width:78px;height:88px;border-radius:44% 44% 46% 46%;background:linear-gradient(145deg,#ffdcb9,#e8a979);z-index:2;box-shadow:inset -8px -7px 12px #b76e4c35,5px 9px 15px #29366a20;transform:rotateY(-8deg)}
+.avatar-head:before{content:"";position:absolute;top:-7px;left:3px;width:72px;height:42px;border-radius:55% 55% 30% 25%;background:linear-gradient(140deg,#34314c,#15172c);box-shadow:inset -5px -4px 8px #0005}
+.student .avatar-head:before{background:linear-gradient(140deg,#49312a,#201b28);height:36px;border-radius:55% 55% 25% 25%}
+.eyes{position:absolute;top:42px;left:23px;letter-spacing:15px;font-size:17px;color:#30283a;font-weight:900}.smile{position:absolute;top:65px;left:34px;width:13px;height:7px;border-bottom:2px solid #a84e53;border-radius:50%}
+.avatar-body{position:absolute;top:108px;width:112px;height:88px;border-radius:38px 38px 15px 15px;background:linear-gradient(135deg,#6d71ed,#4247b5);box-shadow:inset -10px -8px 14px #222b7c55,0 14px 18px #26316b25;transform:rotateX(-5deg)}
+.teacher .avatar-body:before{content:"";position:absolute;left:40px;top:-2px;border-left:16px solid transparent;border-right:16px solid transparent;border-top:24px solid #fff;filter:drop-shadow(0 2px 1px #2224)}
+.student .avatar-body{background:linear-gradient(135deg,#36b99c,#17816f);box-shadow:inset -10px -8px 14px #075f4d55,0 14px 18px #145b5225}
+.shirt-mark{position:absolute;top:28px;left:49px;color:#fff;font-size:19px;text-shadow:0 2px 4px #0004}
+.character-label{position:absolute;bottom:-3px;white-space:nowrap;text-align:center;font-size:9px;letter-spacing:1px;font-weight:900;color:#4a4d83}.character-label small{display:block;letter-spacing:0;font-size:9px;font-weight:600;color:#7d849d;margin-top:3px}
+.float-icon{position:absolute;top:34px;right:-2px;font-size:25px;filter:drop-shadow(0 5px 5px #303b7625);animation:floatIcon 3s ease-in-out infinite}.student .float-icon{right:-5px;top:53px;animation-delay:-1.2s}
+.scene-orbit{position:absolute;border:1px dashed #a8a8e9;border-radius:50%;width:290px;height:95px;bottom:23px;transform:rotate(-12deg);opacity:.55}.orbit-two{width:250px;height:70px;bottom:33px;transform:rotate(18deg);border-color:#a4d8d0}
+@keyframes characterBob{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -8px;rotate:1deg}}
+@keyframes floatIcon{0%,100%{translate:0 0;rotate:-7deg}50%{translate:0 -9px;rotate:8deg}}
+@media(max-width:760px){.learning-scene{grid-template-columns:1fr;padding:20px;gap:4px}.characters{height:225px;gap:10px}.character{transform:scale(.88)}.character.student{transform:scale(.82)}.scene-copy h2{font-size:25px}.scene-orbit{width:250px}}
+@media(prefers-reduced-motion:reduce){.character,.float-icon{animation:none!important}}
+
+
+.visual-gallery{margin:25px 0 22px}.gallery-heading{display:flex;justify-content:space-between;align-items:center;margin:0 2px 15px}.gallery-heading h2{font-size:clamp(22px,3vw,29px);letter-spacing:-.8px;margin:7px 0 5px}.gallery-heading p{margin:0;color:var(--muted);font-size:13px}.gallery-spark{font-size:36px;color:#8574ed;text-shadow:0 5px 16px #8574ed55}
+.gallery-grid{columns:2;column-gap:14px}.visual-card{break-inside:avoid;margin:0 0 14px;border-radius:22px;overflow:hidden;background:#fff;border:1px solid #e9ebf5;box-shadow:0 10px 25px #28356b0b;transition:transform .3s ease,box-shadow .3s ease}.visual-card:hover{transform:translateY(-5px);box-shadow:0 18px 34px #28356b18}.visual-art{height:190px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;isolation:isolate}.visual-caption{padding:13px 15px 15px}.visual-caption b{font-size:13px;display:block}.visual-caption small{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+.path-card .visual-art{background:linear-gradient(145deg,#e8e4ff,#d8f5f0 55%,#d9e9ff)}.path-orbit{position:absolute;width:235px;height:125px;border:8px solid #fff9;border-radius:50%;transform:rotate(-28deg);box-shadow:0 12px 20px #6877b522}.path-step{position:absolute;width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,#fff,#d9e0ff);box-shadow:5px 8px 0 #8b8de955,0 12px 20px #354c8a22;display:grid;place-items:center;color:#5666c9;font-weight:900}.step-a{left:12%;bottom:20%}.step-b{left:47%;top:17%}.step-c{right:11%;bottom:19%}.stack-books{position:absolute;left:37%;bottom:16%;width:92px;height:70px;transform:rotate(-12deg)}.stack-books i{position:absolute;left:0;width:92px;height:19px;border-radius:5px;background:linear-gradient(90deg,#fff,#7c9cf0);box-shadow:0 5px 0 #4f66b5,0 10px 13px #293d7728}.stack-books i:nth-child(2){top:20px;background:linear-gradient(90deg,#fff,#4cc6b1);box-shadow:0 5px 0 #229a8a}.stack-books i:nth-child(3){top:40px;background:linear-gradient(90deg,#fff,#f4b66b);box-shadow:0 5px 0 #c17e42}.compass{position:absolute;right:9%;top:12%;font-size:40px;color:#5267cb;text-shadow:0 7px 8px #394e8b55}
+.education-card .visual-art{background:linear-gradient(145deg,#f9e6db,#e8dcff 55%,#dceaff)}.edu-letters{display:flex;flex-direction:column;align-items:center;transform:rotate(-9deg) translateX(-16px);font-size:28px;line-height:.77;font-weight:1000;letter-spacing:2px;text-shadow:2px 4px 0 #0002,5px 9px 10px #28345b35}.edu-letters span:nth-child(1),.edu-letters span:nth-child(5){color:#f05259}.edu-letters span:nth-child(2),.edu-letters span:nth-child(6){color:#e8ae38}.edu-letters span:nth-child(3),.edu-letters span:nth-child(7){color:#4d7fe1}.edu-letters span:nth-child(4){color:#32a77e}.mini-grad{position:absolute;right:13%;bottom:14%;font-size:58px;filter:drop-shadow(0 10px 8px #28345b35);transform:rotate(12deg)}
+.class-card .visual-art{background:linear-gradient(145deg,#d9eefb,#e7e4ff)}.desk-book{position:absolute;bottom:17%;left:39%;font-size:65px;filter:drop-shadow(0 9px 7px #293b6430);z-index:2}.teacher-figure,.student-figure{position:absolute;font-size:67px;filter:drop-shadow(0 12px 8px #28345b35);animation:floatIcon 4s ease-in-out infinite}.teacher-figure{left:12%;bottom:15%}.student-figure{right:10%;bottom:13%;animation-delay:-2s}.speech-bubble{position:absolute;right:8%;top:12%;background:#fff;padding:8px 12px;border-radius:13px;font-size:10px;font-weight:800;color:#6554ca;box-shadow:0 7px 16px #28345b18}
+.brain-card .visual-art{background:radial-gradient(circle at 50% 42%,#fff1d8,#f3e5ff 48%,#dce9ff)}.brain-glow{font-size:83px;filter:drop-shadow(0 0 14px #f28d9b) drop-shadow(0 13px 10px #29345b30);animation:brainPulse 3s ease-in-out infinite}.brain-rays{position:absolute;top:17%;font-size:19px;color:#e5a43c;letter-spacing:10px}.brain-book{position:absolute;bottom:3%;font-size:45px;filter:drop-shadow(0 8px 6px #28345b35)}
+@keyframes brainPulse{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.08) rotate(3deg)}}
+.books-card .visual-art{background:linear-gradient(145deg,#e1f6f0,#e2e8ff)}.book-stack{width:70%;display:flex;flex-direction:column;gap:5px;transform:perspective(500px) rotateX(13deg) rotateZ(-7deg);filter:drop-shadow(0 12px 8px #26345d30)}.book-stack i{height:25px;border-radius:6px 10px 10px 6px;background:linear-gradient(90deg,#5e83d9,#b5cbff 18%,#fff 22%,#f5f7ff 100%);box-shadow:0 5px 0 #3c5da5;display:flex;align-items:center;padding-left:26px;font-size:8px;font-weight:900;color:#56618c;font-style:normal}.book-stack i:nth-child(2){background:linear-gradient(90deg,#35aa92,#a4e5d3 18%,#fff 22%);box-shadow:0 5px 0 #21806f}.book-stack i:nth-child(3){background:linear-gradient(90deg,#e3a34d,#ffdda0 18%,#fff 22%);box-shadow:0 5px 0 #b87932}.book-stack i:nth-child(4){background:linear-gradient(90deg,#8a70cf,#c8baff 18%,#fff 22%);box-shadow:0 5px 0 #6550a7}.tiny-cap{position:absolute;right:10%;top:9%;font-size:36px;filter:drop-shadow(0 8px 7px #28345b30)}
+.growth-card .visual-art{background:linear-gradient(145deg,#e3f0ff,#e7e1ff)}.laptop-3d{width:155px;height:112px;background:linear-gradient(145deg,#9fb6ed,#536ab9);padding:8px;border-radius:11px;transform:perspective(450px) rotateY(-13deg) rotateX(4deg);box-shadow:0 14px 0 #344c91,0 24px 25px #28345b30}.screen-3d{height:100%;background:linear-gradient(145deg,#fff,#f0f4ff);border-radius:5px;padding:12px;color:#5868c6;font-size:9px;font-weight:900;letter-spacing:1px}.chart-bars{height:40px;display:flex;align-items:end;gap:7px;margin-top:7px}.chart-bars i{width:15px;border-radius:4px 4px 0 0;background:linear-gradient(#8c83f0,#4c9de4);height:45%}.chart-bars i:nth-child(2){height:72%}.chart-bars i:nth-child(3){height:58%}.chart-bars i:nth-child(4){height:95%}.chart-bars i:nth-child(5){height:80%}.growth-icons{position:absolute;bottom:8%;right:8%;font-size:21px;filter:drop-shadow(0 5px 4px #28345b25)}
+@media(min-width:900px){.gallery-grid{columns:3}.visual-art{height:205px}}
+@media(max-width:380px){.gallery-grid{column-gap:9px}.visual-art{height:155px}.visual-caption{padding:10px}.visual-caption b{font-size:12px}}
+
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand"><div class="logo">✦</div>StudyPro AI</div><div class="badge">YOUR PERSONAL AI TEACHER</div></div></header>
+<main>
+<section class="hero"><div><h1>Learn smarter. Score better. 🚀</h1><p>Notes, simple explanations, short answers aur practice — sab ek hi jagah. Apni class aur subject select karke padhna shuru karo.</p></div><div class="hero-icon">🎓</div></section>
+
+<section class="learning-scene" aria-label="3D teacher and student learning scene">
+  <div class="scene-copy">
+    <span class="scene-kicker">MEET YOUR STUDY PARTNERS</span>
+    <h2>Learn with your AI teacher.<br><em>Grow with confidence.</em></h2>
+    <p>Ask doubts, understand every chapter and prepare for exams — one step at a time.</p>
+    <div class="scene-points"><span>✦ Easy explanations</span><span>✦ Smart revision</span></div>
+  </div>
+  <div class="characters">
+    <div class="character teacher">
+      <div class="avatar-glow"></div>
+      <div class="avatar-head"><span class="hair"></span><span class="eyes">••</span><span class="smile"></span></div>
+      <div class="avatar-body"><span class="shirt-mark">✦</span></div>
+      <div class="character-label">AI TEACHER <small>Always ready to help</small></div>
+      <span class="float-icon book">📘</span>
+    </div>
+    <div class="character student">
+      <div class="avatar-glow"></div>
+      <div class="avatar-head"><span class="hair"></span><span class="eyes">••</span><span class="smile"></span></div>
+      <div class="avatar-body"><span class="shirt-mark">✎</span></div>
+      <div class="character-label">YOU, THE LEARNER <small>Every day, a step ahead</small></div>
+      <span class="float-icon star">⭐</span>
+    </div>
+    <div class="scene-orbit orbit-one"></div><div class="scene-orbit orbit-two"></div>
+  </div>
+</section>
+
+
+<section class="visual-gallery">
+  <div class="gallery-heading"><div><span class="scene-kicker">STUDY • EXPLORE • ACHIEVE</span><h2>A more inspiring way to learn</h2><p>Explore ideas, build strong foundations and make every study session count.</p></div><span class="gallery-spark">✦</span></div>
+  <div class="gallery-grid">
+    <article class="visual-card path-card"><div class="visual-art"><div class="path-orbit"></div><div class="path-step step-a">①</div><div class="path-step step-b">②</div><div class="path-step step-c">③</div><div class="stack-books"><i></i><i></i><i></i></div><div class="compass">✧</div></div><div class="visual-caption"><b>Your learning journey</b><small>Discover · Learn · Practice</small></div></article>
+    <article class="visual-card education-card"><div class="visual-art"><div class="edu-letters"><span>E</span><span>D</span><span>U</span><span>C</span><span>A</span><span>T</span><span>E</span></div><div class="mini-grad">🎓</div></div><div class="visual-caption"><b>Education opens doors</b><small>Small steps. Big possibilities.</small></div></article>
+    <article class="visual-card class-card"><div class="visual-art"><div class="desk-book">📖</div><div class="teacher-figure">🧑‍🏫</div><div class="student-figure">🧑‍🎓</div><div class="speech-bubble">Let's learn!</div></div><div class="visual-caption"><b>Learn with your AI teacher</b><small>Clear explanations, made simple</small></div></article>
+    <article class="visual-card brain-card"><div class="visual-art"><div class="brain-glow">🧠</div><div class="brain-rays">✦　✧　✦</div><div class="brain-book">📚</div></div><div class="visual-caption"><b>Build powerful knowledge</b><small>Understand, remember, apply</small></div></article>
+    <article class="visual-card books-card"><div class="visual-art"><div class="book-stack"><i>SCIENCE</i><i>MATHS</i><i>ENGLISH</i><i>AGRICULTURE</i></div><div class="tiny-cap">🎓</div></div><div class="visual-caption"><b>All your subjects in one place</b><small>Class 6–12 learning hub</small></div></article>
+    <article class="visual-card growth-card"><div class="visual-art"><div class="laptop-3d"> <div class="screen-3d"><span>STUDY<br>PROGRESS</span><div class="chart-bars"><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="growth-icons">✏️　🌟　📘</div></div><div class="visual-caption"><b>Track your progress</b><small>Practice a little every day</small></div></article>
+  </div>
+</section>
+
+<section class="grid">
+<div class="card">
+<h2>🤖 Ask your AI Teacher</h2><p class="sub">Apna doubt likho aur answer ka format chuno.</p>
+<div class="row"><div><label for="classSelect">Your class</label><select id="classSelect"><option>Class 6</option><option>Class 7</option><option>Class 8</option><option selected>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select></div><div><label for="language">Answer language</label><select id="language"><option>Hindi</option><option selected>Hinglish</option><option>English</option></select></div></div>
+<label for="question">Ask any question</label><textarea id="question" rows="4" placeholder="Example: Photosynthesis kya hota hai? Simple words mein samjhao..."></textarea>
+<div class="row"><div><label for="format">Answer format</label><select id="format"><option>Short answer</option><option>2 marks</option><option>3 marks</option><option>5 marks</option><option>Step-by-step explanation</option></select></div><div><label for="subjectSelect">Subject</label><select id="subjectSelect"><option>Science</option><option>Mathematics</option><option>English</option><option>Hindi</option><option>Social Science</option><option>Computer</option><option>Agriculture</option></select></div></div>
+<div class="btnrow"><button class="btn" onclick="askDemo()">Get answer ✨</button><button class="btn secondary" onclick="clearQuestion()">Clear</button></div>
+<div class="answer" id="answer"></div>
+<div class="notice">Demo version: abhi AI service connect nahi hai. Isliye yahan sample response dikhega; ise verified textbook answer na samjhein. Agle step mein secure AI connection jodenge.</div>
+</div>
+<div class="card">
+<h2>📚 Explore study notes</h2><p class="sub">Class 6–12 ke liye subject-wise study material. Agriculture bhi shamil hai (Class 12 stream/board ke mutabik syllabus verify karein).</p>
+<label for="notesClass">Select class</label><select id="notesClass" onchange="renderNotes()"><option>Class 6</option><option>Class 7</option><option>Class 8</option><option selected>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select>
+<label for="notesSubject">Select subject</label><select id="notesSubject" onchange="renderNotes()"><option>All subjects</option><option>Science</option><option>Mathematics</option><option>English</option><option>Hindi</option><option>Social Science</option><option>Computer</option><option>Agriculture</option></select>
+<div class="note-list" id="noteList"></div>
+</div>
+</section>
+<section class="features">
+<div class="feature"><span>📝</span><b>Short Notes</b><p>Chapter-wise quick revision material.</p></div>
+<div class="feature"><span>🎯</span><b>Exam Answers</b><p>Marks ke hisaab se answer format.</p></div>
+<div class="feature"><span>🧠</span><b>Practice Quiz</b><p>MCQ aur self-practice tools.</p></div>
+<div class="feature"><span>📈</span><b>Study Progress</b><p>Learning progress track karne ka plan.</p></div>
+</section>
+</main>
+<footer>StudyPro AI · Learn with clarity, practice with confidence.<br>Educational support tool — important answers ko apni textbook/teacher se verify karein.</footer>
+<script>
+const samples=[
+ {subject:"Science",title:"The Fundamental Unit of Life",desc:"Cell — introduction and basic concepts"},
+ {subject:"Mathematics",title:"Number Systems",desc:"Real numbers and number line"},
+ {subject:"English",title:"Reading & Grammar",desc:"Comprehension and grammar practice"},
+ {subject:"Hindi",title:"गद्य और पद्य",desc:"पाठ का सार और शब्दार्थ"},
+ {subject:"Social Science",title:"भारत: आकार और स्थिति",desc:"Geography — key concepts"},
+ {subject:"Computer",title:"Computer Fundamentals",desc:"Basic computer concepts"},
+ {subject:"Agriculture",title:"Introduction to Agriculture",desc:"कृषि का अर्थ, महत्व और शाखाएँ"},
+ {subject:"Agriculture",title:"Soil & Crop Basics",desc:"मिट्टी के प्रकार और फसल उत्पादन की मूल बातें"},
+ {subject:"Agriculture",title:"Irrigation & Seeds",desc:"सिंचाई के तरीके और बीजों की जानकारी"}
+];
+function renderNotes(){let s=document.getElementById('notesSubject').value;let items=s==="All subjects"?samples:samples.filter(x=>x.subject===s);document.getElementById('noteList').innerHTML=items.map(x=>`<div class="note"><div><strong>${x.title}</strong><small>${x.subject} · ${x.desc}</small></div><span class="tag">Coming soon</span></div>`).join('')||'<p class="sub">Is subject ke notes jald add honge.</p>'}
+function askDemo(){let q=document.getElementById('question').value.trim();let box=document.getElementById('answer');if(!q){box.style.display='block';box.textContent='Pehle apna question type karo.';return}let fmt=document.getElementById('format').value;let lang=document.getElementById('language').value;box.style.display='block';box.textContent=`Your question: ${q}\n\nSelected format: ${fmt}\nClass: ${document.getElementById('classSelect').value} · Subject: ${document.getElementById('subjectSelect').value} · Language: ${lang}\n\nAI connection abhi setup nahi hua hai. Is demo mein real answer generate nahi hota. Next build mein AI model connect karke concise, easy-to-understand answers aur step-by-step explanations enable karenge.`}
+function clearQuestion(){document.getElementById('question').value='';document.getElementById('answer').style.display='none'}
+renderNotes();
+</script>
+</body></html>
